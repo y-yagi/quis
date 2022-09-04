@@ -22,7 +22,14 @@ export default function Index() {
   if (!session) {
     return (
       <>
-        <Auth />
+        <Layout>
+          <Head>
+            <title>Quis - login</title>
+          </Head>
+          <Container>
+            <Auth />
+          </Container>
+        </Layout>
       </>
     );
   }
