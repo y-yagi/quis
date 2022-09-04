@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
 import Auth from "../components/Auth";
-import Dashboard from "../components/Dashboard";
 import { AuthSession } from "@supabase/supabase-js";
+import Layout from "../components/Layout";
+import Head from "next/head";
+import Container from "../components/Container";
+import Intro from "../components/Intro";
 
-export default function Home() {
+export default function Index() {
   const [session, setSession] = useState<AuthSession | null>(null);
 
   useEffect(() => {
@@ -16,9 +19,24 @@ export default function Home() {
     });
   }, []);
 
+  if (!session) {
+    return (
+      <>
+        <Auth />
+      </>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      {!session ? <Auth /> : <Dashboard />}
-    </div>
+    <>
+      <Layout>
+        <Head>
+          <title>Quis</title>
+        </Head>
+        <Container>
+          <Intro />
+        </Container>
+      </Layout>
+    </>
   );
 }
