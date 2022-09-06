@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import UserContext from "../lib/UserContext";
 import Auth from "../components/Auth";
 import { AuthSession } from "@supabase/supabase-js";
 import Layout from "../components/Layout";
@@ -40,9 +41,11 @@ export default function Index() {
         <Head>
           <title>Quis</title>
         </Head>
-        <Container>
-          <Intro />
-        </Container>
+        <UserContext.Provider value={session.user}>
+          <Container>
+            <Intro />
+          </Container>
+        </UserContext.Provider>
       </Layout>
     </>
   );
