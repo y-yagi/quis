@@ -7,6 +7,8 @@ import Layout from "../components/Layout";
 import Head from "next/head";
 import Container from "../components/Container";
 import Intro from "../components/Intro";
+import QuizSets from "../components/QuizSets";
+import { Provider } from "react-supabase";
 
 export default function Index() {
   const [session, setSession] = useState<AuthSession | null>(null);
@@ -41,11 +43,14 @@ export default function Index() {
         <Head>
           <title>Quis</title>
         </Head>
-        <UserContext.Provider value={session.user}>
-          <Container>
-            <Intro />
-          </Container>
-        </UserContext.Provider>
+        <Provider value={supabase}>
+          <UserContext.Provider value={session.user}>
+            <Container>
+              <Intro />
+              <QuizSets />
+            </Container>
+          </UserContext.Provider>
+        </Provider>
       </Layout>
     </>
   );
