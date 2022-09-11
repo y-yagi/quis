@@ -1,10 +1,10 @@
 import Container from "../../components/Container";
 import QuisSetForm from "../../components/QuizSetForm";
-import QuizSet from "../../types/QuizSet";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import UserContext from "../../lib/UserContext";
 import { useFilter, useSelect } from "react-supabase";
+import Quizzes from "../../components/Quizzes";
 
 const Edit = () => {
   const router = useRouter();
@@ -27,6 +27,7 @@ const Edit = () => {
   return (
     <Container>
       <QuisSetForm quizSet={data[0]} />
+      <Quizzes quizSetId={data[0].id} />
     </Container>
   );
 };
