@@ -55,7 +55,9 @@ const QuizSets = () => {
                   <button className="btn btn-green">Test</button>
                 </td>
                 <td className="px-4 py-2">
-                  <button className="btn btn-blue">Edit</button>
+                  <Link href={`/quiz_sets/${quisSet.id}`}>
+                    <button className="btn btn-blue">Edit</button>
+                  </Link>
                 </td>
                 <td className="px-4 py-2">
                   <button

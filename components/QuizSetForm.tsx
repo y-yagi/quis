@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { NextPage } from "next";
 import QuizSet from "../types/QuizSet";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { useInsert } from "react-supabase";
+import { useInsert, useUpdate } from "react-supabase";
 import UserContext from "../lib/UserContext";
 
 interface Props {
@@ -13,15 +13,23 @@ const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
   const router = useRouter();
   const user = useContext(UserContext);
   const [name, setName] = useState<string>(quizSet.name);
-  const [_, execute] = useInsert("quiz_sets");
+  const [_input, insertExecute] = useInsert("quiz_sets");
+  const [_update, updateExecute] = useUpdate("quiz_sets");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { count, data, error } = await execute({
-      name: name,
-      user_id: user?.id,
-    });
+    if (quizSet.id) {
+      const { count, data, error } = await updateExecute(
+        { name: name },
+        (query) => query.eq("id", quizSet.id)
+      );
+    } else {
+      const { count, data, error } = await insertExecute({
+        name: name,
+        user_id: user?.id,
+      });
+    }
     // TODO: error handling
     router.push("/");
   };
