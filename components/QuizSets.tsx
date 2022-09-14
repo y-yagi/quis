@@ -46,16 +46,18 @@ const QuizSets = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((quisSet) => (
-              <tr key={quisSet.id} className="border">
+            {data?.map((quizSet) => (
+              <tr key={quizSet.id} className="border">
                 <td className="px-4 py-2">
-                  <span className="text-blue-900">{quisSet.name}</span>
+                  <span className="text-blue-900">{quizSet.name}</span>
                 </td>
                 <td className="px-4 py-2">
-                  <button className="btn btn-green">Test</button>
+                  <Link href={`/test?quiz_set_id=${quizSet.id}`}>
+                    <button className="btn btn-green">Test</button>
+                  </Link>
                 </td>
                 <td className="px-4 py-2">
-                  <Link href={`/quiz_sets/${quisSet.id}`}>
+                  <Link href={`/quiz_sets/${quizSet.id}`}>
                     <button className="btn btn-blue">Edit</button>
                   </Link>
                 </td>
@@ -68,7 +70,7 @@ const QuizSets = () => {
                           "Are you sure you wish to delete this item?"
                         )
                       )
-                        handleDestroy(quisSet.id);
+                        handleDestroy(quizSet.id);
                     }}
                   >
                     Destroy
