@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import { useRef, useState } from "react";
 import Quiz from "../types/Quiz";
-import Quizzes from "./Quizzes";
 
 interface Props {
   quiz: Quiz;

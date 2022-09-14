@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useDelete, useFilter, useSelect } from "react-supabase";
 import UserContext from "../lib/UserContext";
 import Quiz from "../types/Quiz";
