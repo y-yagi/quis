@@ -20,7 +20,7 @@ const QuizSets = () => {
   const handleDestroy = async (id: string) => {
     const { count, data, error } = await execute((query) => query.eq("id", id));
     // TODO: error handling
-    router.reload(window.location.pathname);
+    router.reload();
   };
 
   if (error) return <div>{error.message}</div>;
