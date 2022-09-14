@@ -14,7 +14,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
   const router = useRouter();
   const user = useContext(UserContext);
   const filter = useFilter(
-    (query) => query.eq("user_id", user?.id).eq("quiz_sets_id", quizSetId),
+    (query) => query.eq("user_id", user?.id).eq("quiz_set_id", quizSetId),
     [user?.id]
   );
 
@@ -25,7 +25,8 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
 
   const handleDestroy = async (id: string) => {
     const { count, data, error } = await execute((query) => query.eq("id", id));
-    router.reload(window.location.pathname);
+    // TODO: error handling
+    router.reload();
   };
 
   if (error) return <div>{error.message}</div>;
@@ -35,7 +36,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
     <section>
       <div>
         <p className="mb-8 underline tracking-tighter m-5">
-          <Link href="/quizzes/new">
+          <Link href={`/quizzes/new?quiz_set_id=${quizSetId}`}>
             <a>Add a new Quiz</a>
           </Link>
         </p>
@@ -60,7 +61,9 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
                   <span>{quiz.answer}</span>
                 </td>
                 <td className="px-4 py-2">
-                  <button className="btn btn-blue">Edit</button>
+                  <Link href={`/quizzes/${quiz.id}/?quiz_set_id=${quizSetId}`}>
+                    <button className="btn btn-blue">Edit</button>
+                  </Link>
                 </td>
                 <td className="px-4 py-2">
                   <button
