@@ -4,6 +4,7 @@ import QuizSet from "../types/QuizSet";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useInsert, useUpdate } from "react-supabase";
 import UserContext from "../lib/UserContext";
+import ErrorMessage from "./ErrorMessage";
 
 interface Props {
   quizSet: QuizSet;
@@ -13,29 +14,46 @@ const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
   const router = useRouter();
   const user = useContext(UserContext);
   const [name, setName] = useState<string>(quizSet.name);
+  const [errmsg, setErrmsg] = useState("");
   const [_input, insertExecute] = useInsert("quiz_sets");
   const [_update, updateExecute] = useUpdate("quiz_sets");
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (quizSet.id) {
-      const { count, data, error } = await updateExecute(
-        { name: name },
-        (query) => query.eq("id", quizSet.id)
-      );
+      updateQuizSet();
     } else {
-      const { count, data, error } = await insertExecute({
-        name: name,
-        user_id: user?.id,
-      });
+      createQuizSet();
     }
-    // TODO: error handling
-    router.push("/");
   };
 
   const handleChangeName = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
+  };
+
+  const createQuizSet = async () => {
+    const { error } = await insertExecute({
+      name: name,
+      user_id: user?.id,
+    });
+
+    if (error) {
+      setErrmsg(error.toString);
+    } else {
+      router.push("/");
+    }
+  };
+
+  const updateQuizSet = async () => {
+    const { error } = await updateExecute({ name: name }, (query) =>
+      query.eq("id", quizSet.id)
+    );
+
+    if (error) {
+      setErrmsg(error.toString);
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -43,6 +61,7 @@ const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
       <h3 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
         QuisSet
       </h3>
+      <ErrorMessage message={errmsg} />
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-1/6">

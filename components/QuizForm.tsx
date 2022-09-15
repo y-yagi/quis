@@ -4,6 +4,7 @@ import Quiz from "../types/Quiz";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useInsert, useUpdate } from "react-supabase";
 import UserContext from "../lib/UserContext";
+import ErrorMessage from "./ErrorMessage";
 
 interface Props {
   quiz: Quiz;
@@ -14,27 +15,44 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
   const user = useContext(UserContext);
   const [question, setQuestion] = useState<string>(quiz.question);
   const [answer, setAnswer] = useState<string>(quiz.answer);
+  const [errmsg, setErrmsg] = useState("");
   const [_input, insertExecute] = useInsert("quizzes");
   const [_update, updateExecute] = useUpdate("quizzes");
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (quiz.id) {
-      const { count, data, error } = await updateExecute(
-        { question: question, answer: answer },
-        (query) => query.eq("id", quiz.id)
-      );
+      updateQuiz();
     } else {
-      const { count, data, error } = await insertExecute({
-        question: question,
-        answer: answer,
-        quiz_set_id: quiz.quiz_set_id,
-        user_id: user?.id,
-      });
+      createQuiz();
     }
-    // TODO: error handling
-    router.push(`/quiz_sets/${quiz.quiz_set_id}`);
+  };
+
+  const createQuiz = async () => {
+    const { error } = await insertExecute({
+      question: question,
+      answer: answer,
+      quiz_set_id: quiz.quiz_set_id,
+      user_id: user?.id,
+    });
+    if (error) {
+      setErrmsg(error.toString);
+    } else {
+      router.push(`/quiz_sets/${quiz.quiz_set_id}`);
+    }
+  };
+
+  const updateQuiz = async () => {
+    const { error } = await updateExecute(
+      { question: question, answer: answer },
+      (query) => query.eq("id", quiz.id)
+    );
+    if (error) {
+      setErrmsg(error.toString);
+    } else {
+      router.push(`/quiz_sets/${quiz.quiz_set_id}`);
+    }
   };
 
   const handleChangeAnswer = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -50,6 +68,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
       <h3 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
         Quiz
       </h3>
+      <ErrorMessage message={errmsg} />
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
         <div className="md:flex md:items-center mb-6">
           <div>

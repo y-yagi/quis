@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useDelete, useFilter, useSelect } from "react-supabase";
 import UserContext from "../lib/UserContext";
 import Quiz from "../types/Quiz";
+import ErrorMessage from "./ErrorMessage";
 
 interface Props {
   quizSetId: number;
@@ -13,6 +14,7 @@ interface Props {
 const Quizzes: NextPage<Props> = ({ quizSetId }) => {
   const router = useRouter();
   const user = useContext(UserContext);
+  const [errmsg, setErrmsg] = useState("");
   const filter = useFilter(
     (query) => query.eq("user_id", user?.id).eq("quiz_set_id", quizSetId),
     [user?.id]
@@ -24,9 +26,12 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
   const [_, execute] = useDelete("quizzes");
 
   const handleDestroy = async (id: string) => {
-    const { count, data, error } = await execute((query) => query.eq("id", id));
-    // TODO: error handling
-    router.reload();
+    const { error } = await execute((query) => query.eq("id", id));
+    if (error) {
+      setErrmsg(error.toString);
+    } else {
+      router.reload();
+    }
   };
 
   if (error) return <div>{error.message}</div>;
@@ -42,6 +47,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
         </p>
       </div>
       <div className="grid">
+        <ErrorMessage message={errmsg} />
         <table className="table-auto">
           <thead>
             <tr>

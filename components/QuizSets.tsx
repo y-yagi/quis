@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useDelete, useFilter, useSelect } from "react-supabase";
 import UserContext from "../lib/UserContext";
+import ErrorMessage from "./ErrorMessage";
 
 const QuizSets = () => {
   const router = useRouter();
   const user = useContext(UserContext);
+  const [errmsg, setErrmsg] = useState("");
+
   const filter = useFilter(
     (query) => query.eq("user_id", user?.id),
     [user?.id]
@@ -18,9 +21,12 @@ const QuizSets = () => {
   const [_, execute] = useDelete("quiz_sets");
 
   const handleDestroy = async (id: string) => {
-    const { count, data, error } = await execute((query) => query.eq("id", id));
-    // TODO: error handling
-    router.reload();
+    const { error } = await execute((query) => query.eq("id", id));
+    if (error) {
+      setErrmsg(error.toString);
+    } else {
+      router.reload();
+    }
   };
 
   if (error) return <div>{error.message}</div>;
@@ -36,6 +42,7 @@ const QuizSets = () => {
         </p>
       </div>
       <div className="grid">
+        <ErrorMessage message={errmsg} />
         <table className="table-auto">
           <thead>
             <tr>
