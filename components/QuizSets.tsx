@@ -21,7 +21,7 @@ const QuizSets = () => {
   const [_, execute] = useDelete("quiz_sets");
 
   const handleDestroy = async (id: string) => {
-    const { error } = await execute((query) => query.eq("id", id));
+    const { error } = await execute((query) => query.eq("id", id).eq("user_id", user?.id));
     if (error) {
       setErrmsg(error.toString);
     } else {

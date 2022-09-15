@@ -46,7 +46,7 @@ const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
 
   const updateQuizSet = async () => {
     const { error } = await updateExecute({ name: name }, (query) =>
-      query.eq("id", quizSet.id)
+      query.eq("id", quizSet.id).eq("user_id", user?.id)
     );
 
     if (error) {
