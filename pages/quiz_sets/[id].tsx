@@ -1,5 +1,5 @@
 import Container from "../../components/Container";
-import QuisSetForm from "../../components/QuizSetForm";
+import QuizSetForm from "../../components/QuizSetForm";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import UserContext from "../../lib/UserContext";
@@ -26,7 +26,7 @@ const Edit = () => {
 
   return (
     <Container>
-      <QuisSetForm quizSet={data[0]} />
+      <QuizSetForm quizSet={data[0]} />
       <Quizzes quizSetId={data[0].id} />
     </Container>
   );

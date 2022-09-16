@@ -1,5 +1,5 @@
 import Container from "../../components/Container";
-import QuisSetForm from "../../components/QuizSetForm";
+import QuizSetForm from "../../components/QuizSetForm";
 import QuizSet from "../../types/QuizSet";
 
 const New = () => {
@@ -12,7 +12,7 @@ const New = () => {
 
   return (
     <Container>
-      <QuisSetForm quizSet={quizSet} />
+      <QuizSetForm quizSet={quizSet} />
     </Container>
   );
 };

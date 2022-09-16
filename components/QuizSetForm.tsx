@@ -10,7 +10,7 @@ interface Props {
   quizSet: QuizSet;
 }
 
-const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
+const QuizSetForm: NextPage<Props> = ({ quizSet }) => {
   const router = useRouter();
   const user = useContext(UserContext);
   const [name, setName] = useState<string>(quizSet.name);
@@ -59,7 +59,7 @@ const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
   return (
     <section>
       <h3 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
-        QuisSet
+        QuizSet
       </h3>
       <ErrorMessage message={errmsg} />
       <form onSubmit={handleSubmit} className="w-full max-w-sm">
@@ -93,4 +93,4 @@ const QuisSetForm: NextPage<Props> = ({ quizSet }) => {
   );
 };
 
-export default QuisSetForm;
+export default QuizSetForm;
