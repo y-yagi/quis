@@ -4,7 +4,7 @@ import QuizSet from "../../types/QuizSet";
 
 const New = () => {
   const quizSet: QuizSet = {
-    id: "",
+    id: 0 ,
     user_id: "",
     name: "",
     created_at: "",
