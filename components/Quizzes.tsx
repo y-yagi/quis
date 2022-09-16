@@ -25,7 +25,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
   });
   const [_, execute] = useDelete("quizzes");
 
-  const handleDestroy = async (id: string) => {
+  const handleDestroy = async (id: number) => {
     const { error } = await execute((query) =>
       query.eq("id", id).eq("user_id", user?.id)
     );
