@@ -16,7 +16,11 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
   const user = useContext(UserContext);
   const [errmsg, setErrmsg] = useState("");
   const filter = useFilter(
-    (query) => query.eq("user_id", user?.id).eq("quiz_set_id", quizSetId),
+    (query) =>
+      query
+        .eq("user_id", user?.id)
+        .eq("quiz_set_id", quizSetId)
+        .order("created_at"),
     [user?.id]
   );
 

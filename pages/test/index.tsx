@@ -11,7 +11,11 @@ export default function Index() {
   const { quiz_set_id } = router.query;
   const user = useContext(UserContext);
   const filter = useFilter(
-    (query) => query.eq("user_id", user?.id).eq("quiz_set_id", quiz_set_id),
+    (query) =>
+      query
+        .eq("user_id", user?.id)
+        .eq("quiz_set_id", quiz_set_id)
+        .order("created_at"),
     [user?.id]
   );
   const [{ data, error, fetching }, _reexecute] = useSelect("quizzes", {

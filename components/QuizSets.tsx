@@ -22,7 +22,7 @@ const QuizSets = () => {
 
   const handleDestroy = async (id: string) => {
     const { error } = await execute((query) =>
-      query.eq("id", id).eq("user_id", user?.id)
+      query.eq("id", id).eq("user_id", user?.id).order("created_at")
     );
 
     if (error) {
