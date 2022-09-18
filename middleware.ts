@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export const middleware = (req: NextRequest) => {
   if (
-    process.env.BASIC_AUTH_USER === null ||
-    process.env.BASIC_AUTH_PASSWORD === null
+    process.env.BASIC_AUTH_USER === undefined ||
+    process.env.BASIC_AUTH_PASSWORD === undefined
   ) {
     return NextResponse.next();
   }
