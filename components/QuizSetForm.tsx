@@ -38,7 +38,7 @@ const QuizSetForm: NextPage<Props> = ({ quizSet }) => {
     });
 
     if (error) {
-      setErrmsg(error.toString);
+      setErrmsg(error.message);
     } else {
       router.push("/");
     }
@@ -50,7 +50,7 @@ const QuizSetForm: NextPage<Props> = ({ quizSet }) => {
     );
 
     if (error) {
-      setErrmsg(error.toString);
+      setErrmsg(error.message);
     } else {
       router.push("/");
     }

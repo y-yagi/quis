@@ -30,7 +30,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
       query.eq("id", id).eq("user_id", user?.id)
     );
     if (error) {
-      setErrmsg(error.toString);
+      setErrmsg(error.message);
     } else {
       router.reload();
     }

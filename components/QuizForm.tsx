@@ -37,7 +37,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
       user_id: user?.id,
     });
     if (error) {
-      setErrmsg(error.toString);
+      setErrmsg(error.message);
     } else {
       router.push(`/quiz_sets/${quiz.quiz_set_id}`);
     }
@@ -49,7 +49,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
       (query) => query.eq("id", quiz.id).eq("user_id", user?.id)
     );
     if (error) {
-      setErrmsg(error.toString);
+      setErrmsg(error.message);
     } else {
       router.push(`/quiz_sets/${quiz.quiz_set_id}`);
     }
