@@ -32,6 +32,7 @@ const TestForm: NextPage<Props> = ({ quiz }) => {
           name="answer"
           placeholder="Put in your answer."
           className="border border-gray-300 shadow p-3 w-full rounded mb-"
+          autoComplete="off"
           onChange={handleChangeAnswer}
         />
         <p className="text-red-400 mt-2" ref={ansRef} />
