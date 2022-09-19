@@ -15,6 +15,7 @@ export default function Index() {
       query
         .eq("user_id", user?.id)
         .eq("quiz_set_id", quiz_set_id)
+        .eq("enabled", false)
         .order("created_at"),
     [user?.id]
   );
