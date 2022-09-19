@@ -26,7 +26,13 @@ export default function Index() {
   if (error) return <div>{error.message}</div>;
   if (fetching) return <div>Loading...</div>;
 
-  const handleCheck = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {};
+  if (data?.length === 0) {
+    return (
+      <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+        <strong className="font-bold">There are no tests.</strong>
+      </div>
+    );
+  }
 
   return (
     <Container>
