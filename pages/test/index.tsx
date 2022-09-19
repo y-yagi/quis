@@ -20,6 +20,7 @@ export default function Index() {
     [user?.id]
   );
   const [{ data, error, fetching }, _reexecute] = useSelect("quizzes", {
+    columns: "id, question, answer",
     filter,
   });
 
