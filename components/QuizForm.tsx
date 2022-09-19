@@ -15,6 +15,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
   const user = useContext(UserContext);
   const [question, setQuestion] = useState<string>(quiz.question);
   const [answer, setAnswer] = useState<string>(quiz.answer);
+  const [enabled, setEnabled] = useState<boolean>(quiz.enabled);
   const [errmsg, setErrmsg] = useState("");
   const [_input, insertExecute] = useInsert("quizzes");
   const [_update, updateExecute] = useUpdate("quizzes");
@@ -33,6 +34,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
     const { error } = await insertExecute({
       question: question,
       answer: answer,
+      enabled: enabled,
       quiz_set_id: quiz.quiz_set_id,
       user_id: user?.id,
     });
@@ -45,7 +47,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
 
   const updateQuiz = async () => {
     const { error } = await updateExecute(
-      { question: question, answer: answer },
+      { question: question, answer: answer, enabled: enabled },
       (query) => query.eq("id", quiz.id).eq("user_id", user?.id)
     );
     if (error) {
@@ -63,37 +65,36 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
     setQuestion(event.target.value);
   };
 
+  const handleChangeEnabled = (event: ChangeEvent<HTMLInputElement>) => {
+    setEnabled(event.target.checked);
+  };
+
   return (
     <section>
       <h3 className="mb-8 text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
         Quiz
       </h3>
       <ErrorMessage message={errmsg} />
-      <form onSubmit={handleSubmit} className="w-full max-w-sm">
-        <div className="md:flex md:items-center mb-6">
-          <div>
-            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-              Question
-            </label>
-          </div>
-          <div>
-            <textarea
-              rows={4}
-              placeholder="Question"
-              required
-              name="question"
-              onChange={handleChangeQuestion}
-              defaultValue={question}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </div>
-        </div>
-        <div className="md:flex md:items-center mb-6">
-          <div>
-            <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-              Answer
-            </label>
-          </div>
+      <form onSubmit={handleSubmit} className="w-full divide-y">
+        {/* <form onSubmit={handleSubmit} className="max-w-xl mx-auto py-12 divide-y md:max-w-4xl"> */}
+        <label className="block">
+          <span className="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+            Question
+          </span>
+          <textarea
+            rows={4}
+            placeholder="Question"
+            required
+            name="question"
+            onChange={handleChangeQuestion}
+            defaultValue={question}
+            className="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-textarea"
+          />
+        </label>
+        <label className="block">
+          <span className="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
+            Answoer
+          </span>
           <div className="pr-8">
             <textarea
               rows={4}
@@ -102,11 +103,26 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
               name="answer"
               onChange={handleChangeAnswer}
               defaultValue={answer}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline form-textarea"
             />
           </div>
+        </label>
+        <div className="block">
+          <input
+            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+            type="checkbox"
+            onChange={handleChangeEnabled}
+            checked={enabled}
+            id="enabled"
+          />
+          <label
+            className="form-check-label inline-block text-gray-800"
+            htmlFor="enabled"
+          >
+            Enabled
+          </label>
         </div>
-        <div className="md:flex md:items-center mb-6">
+        <div className="block">
           <div className="md:w-1/6">
             <button
               type="submit"

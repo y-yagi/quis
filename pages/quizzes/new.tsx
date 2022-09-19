@@ -13,6 +13,7 @@ const New = () => {
     quiz_set_id: parseInt(quiz_set_id as string, 10),
     question: "",
     answer: "",
+    enabled: true,
     created_at: "",
   };
 

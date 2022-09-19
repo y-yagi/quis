@@ -4,6 +4,7 @@ type QuizType = {
   quiz_set_id: number;
   question: string;
   answer: string;
+  enabled: boolean;
   created_at: string;
 };
 
