@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Quiz from "../types/Quiz";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 const TestForm: NextPage<Props> = ({ quiz }) => {
   const [yourAnswer, setYourAnswer] = useState("");
-  const ansRef = useRef<HTMLParagraphElement>(null);
+  const [answer, setAnswer] = useState("");
 
   const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     setYourAnswer(event.target.value);
@@ -18,7 +18,7 @@ const TestForm: NextPage<Props> = ({ quiz }) => {
     let msg = "Correct!";
     if (quiz.answer !== yourAnswer)
       msg = `Wrong! The answer is " ${quiz.answer} "`;
-    if (ansRef && ansRef.current) ansRef.current.innerHTML = msg;
+    setAnswer(msg);
   };
 
   return (
@@ -35,7 +35,7 @@ const TestForm: NextPage<Props> = ({ quiz }) => {
           autoComplete="off"
           onChange={handleChangeAnswer}
         />
-        <p className="text-red-400 mt-2" ref={ansRef} />
+        <p className="text-red-400 mt-2">{answer}</p>
       </div>
 
       <div className="text-right">
