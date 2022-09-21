@@ -26,6 +26,7 @@ export default function Index() {
 
   if (error) return <div>{error.message}</div>;
   if (fetching) return <div>Loading...</div>;
+  if (!data) return <div>Loading...</div>;
 
   if (data?.length === 0) {
     return (
@@ -42,9 +43,7 @@ export default function Index() {
       </h1>
       <div className="min-h-screen flex">
         <div className="w-full">
-          {data?.map((quiz: Quiz) => (
-            <TestForm key={quiz.id} quiz={quiz} />
-          ))}
+          <TestForm quizzes={data as Quiz[]} />
         </div>
       </div>
     </Container>
