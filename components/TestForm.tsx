@@ -38,6 +38,12 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
     setQuizIndex(nextQuizIndex);
   };
 
+  const handleRetry = () => {
+    setQuizFinished(false);
+    setAnswer("");
+    setYourAnswer("");
+  };
+
   const showActionButton = () => {
     if (!quizFinished) {
       return (
@@ -61,12 +67,20 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
     }
 
     return (
-      <button
-        className="py-3 px-8 bg-blue-500 text-blue-100 font-bold rounded"
-        onClick={handleNextQuestion}
-      >
-        Next
-      </button>
+      <div>
+        <button
+          className="py-3 px-8 bg-blue-500 text-blue-100 font-bold rounded mr-5"
+          onClick={handleRetry}
+        >
+          Retry
+        </button>
+        <button
+          className="py-3 px-8 bg-blue-500 text-blue-100 font-bold rounded"
+          onClick={handleNextQuestion}
+        >
+          Next
+        </button>
+      </div>
     );
   };
 
