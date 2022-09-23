@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
@@ -73,6 +72,9 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
 
   return (
     <div className="p-10 rounded-lg mx-auto">
+      <div className="text-center font-bold">{`${quizIndex + 1}/${
+        quizzes.length
+      }`}</div>
       <div className="mb-5">
         <label className="block mb-2 font-bold text-gray-600">
           {curQuiz.question}
@@ -89,7 +91,9 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
         <p className="text-red-400 mt-2">{answer}</p>
       </div>
 
-      <div className="text-right">{showActionButton()}</div>
+      <div className="text-right">
+        <div>{showActionButton()}</div>
+      </div>
     </div>
   );
 };
