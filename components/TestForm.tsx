@@ -58,11 +58,19 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
 
     if (quizIndex >= quizzes.length - 1) {
       return (
-        <Link href="/">
-          <button className="py-3 px-8 bg-blue-500 text-blue-100 font-bold rounded">
-            Finish
+        <div>
+          <button
+            className="py-3 px-8 bg-blue-500 text-blue-100 font-bold rounded mr-5"
+            onClick={handleRetry}
+          >
+            Retry
           </button>
-        </Link>
+          <Link href="/">
+            <button className="py-3 px-8 bg-blue-500 text-blue-100 font-bold rounded">
+              Finish
+            </button>
+          </Link>
+        </div>
       );
     }
 
