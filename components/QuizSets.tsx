@@ -62,7 +62,9 @@ const QuizSets = () => {
                   <span className="text-blue-900">{quizSet.name}</span>
                 </td>
                 <td className="px-4 py-2">
-                  <Link href={`/test?quiz_set_id=${quizSet.id}`}>
+                  <Link
+                    href={`/test?quiz_set_id=${quizSet.id}&quiz_set_name=${quizSet.name}`}
+                  >
                     <button className="btn btn-green">Test</button>
                   </Link>
                 </td>

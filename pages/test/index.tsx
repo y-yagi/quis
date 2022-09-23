@@ -8,7 +8,7 @@ import Quiz from "../../types/Quiz";
 
 export default function Index() {
   const router = useRouter();
-  const { quiz_set_id } = router.query;
+  const { quiz_set_id, quiz_set_name } = router.query;
   const user = useContext(UserContext);
   const filter = useFilter(
     (query) =>
@@ -38,9 +38,9 @@ export default function Index() {
 
   return (
     <Container>
-      <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-        Test
-      </h1>
+      <h2 className="text-1xl md:text-4l font-bold tracking-tighter leading-tight md:pr-8">
+        {quiz_set_name}
+      </h2>
       <div className="min-h-screen flex">
         <div className="w-full">
           <TestForm quizzes={data as Quiz[]} />
