@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Quiz from "../types/Quiz";
 
 interface Props {
@@ -14,13 +14,11 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
   const [answer, setAnswer] = useState("");
   const [quizFinished, setQuizFinished] = useState(false);
 
-  const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeAnswer = (event: ChangeEvent<HTMLInputElement>) => {
     setYourAnswer(event.target.value);
   };
 
-  const handleCheckAnswer = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
+  const handleCheckAnswer = () => {
     let msg = "Correct!";
     if (curQuiz.answer !== yourAnswer)
       msg = `Wrong! The answer is " ${curQuiz.answer} "`;
@@ -49,7 +47,7 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
       return (
         <button
           className="py-3 px-8 bg-green-500 text-green-100 font-bold rounded"
-          onClick={handleCheckAnswer}
+          onClick={() => handleCheckAnswer()}
         >
           Check
         </button>
