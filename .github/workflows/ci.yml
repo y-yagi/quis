@@ -17,5 +17,5 @@ jobs:
     - name: Check format
       run: yarn formatter
     - name: Check lint
-      run: yarn next lint
+      run: yarn lint
 
