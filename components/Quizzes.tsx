@@ -40,16 +40,32 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
     }
   };
 
+  const genereateQuizzesDownloadURL = (): string => {
+    const csvData = data
+      ?.map((record) => `"${record.question}","${record.answer}"`)
+      .join("\r\n");
+    // The bom for Excel.
+    const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+    return URL.createObjectURL(
+      new Blob([bom, csvData as string], { type: "text/csv" })
+    );
+  };
+
   if (error) return <div>{error.message}</div>;
   if (fetching) return <div>Loading...</div>;
 
   return (
     <section>
       <div>
-        <p className="mb-8 underline tracking-tighter m-5">
+        <p className="mb-8 underline tracking-tighter m-3">
           <Link href={`/quizzes/new?quiz_set_id=${quizSetId}`}>
             <a>Add a new Quiz</a>
           </Link>
+          <span className="ml-5">
+            <a href={genereateQuizzesDownloadURL()} download={`quizzes.csv`}>
+              Download quizzes
+            </a>
+          </span>
         </p>
       </div>
       <div className="grid">
