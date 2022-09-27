@@ -76,7 +76,6 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
       </h3>
       <ErrorMessage message={errmsg} />
       <form onSubmit={handleSubmit} className="w-full divide-y">
-        {/* <form onSubmit={handleSubmit} className="max-w-xl mx-auto py-12 divide-y md:max-w-4xl"> */}
         <label className="block">
           <span className="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
             Question
@@ -93,7 +92,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
         </label>
         <label className="block">
           <span className="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">
-            Answoer
+            Answer
           </span>
           <div className="pr-8">
             <textarea
