@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "next lint --max-warnings 0",
     "formatter": "yarn prettier --check .",
     "formatter:write": "yarn prettier --write ."
