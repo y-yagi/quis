@@ -30,6 +30,8 @@ port = 64323
 [inbucket]
 # Port to use for the email testing server web interface.
 port = 64324
+smtp_port = 64325
+pop3_port = 64326
 
 [auth]
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
@@ -58,3 +60,6 @@ enable_confirmations = false
 enabled = false
 client_id = ""
 secret = ""
+# Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,
+# or any other third-party OIDC providers.
+url = ""
