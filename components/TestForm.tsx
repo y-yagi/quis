@@ -20,8 +20,7 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
 
   const handleCheckAnswer = () => {
     let msg = "Correct!";
-    if (curQuiz.answer !== yourAnswer)
-      msg = `Wrong! The answer is " ${curQuiz.answer} "`;
+    if (curQuiz.answer !== yourAnswer) msg = curQuiz.answer;
 
     setAnswer(msg);
     setQuizFinished(true);
@@ -90,6 +89,18 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
     );
   };
 
+  const showAnswer = () => {
+    if (answer.length === 0) {
+      return <p></p>;
+    }
+    return (
+      <p className="text-red-400 mt-2">
+        Wrong! The answer is &quot;{" "}
+        <span className="font-bold">{curQuiz.answer}</span> &quot;
+      </p>
+    );
+  };
+
   return (
     <div className="p-10 rounded-lg mx-auto">
       <div className="text-center font-bold">{`${quizIndex + 1}/${
@@ -108,7 +119,7 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
           value={yourAnswer}
           onChange={handleChangeAnswer}
         />
-        <p className="text-red-400 mt-2">{answer}</p>
+        {showAnswer()}
       </div>
 
       <div className="text-right">
