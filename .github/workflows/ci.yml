@@ -18,4 +18,7 @@ jobs:
       run: yarn formatter
     - name: Check lint
       run: yarn lint
+    - name: Run test
+      run: yarn test
+
 
