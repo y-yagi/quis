@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-supabase";
 import QuizSets from "../../components/QuizSets";
-import { client } from "../utils";
+import { ProviderWrapper } from "../utils";
 import nock from "nock";
 import { setTimeout } from "timers/promises";
 
@@ -15,9 +15,9 @@ describe("QuizSets", () => {
       .reply(200, [{ id: 1, name: "QuizSetsTestOne" }]);
 
     render(
-      <Provider value={client}>
+      <ProviderWrapper>
         <QuizSets />
-      </Provider>
+      </ProviderWrapper>
     );
     await setTimeout(100);
 
