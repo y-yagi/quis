@@ -7,11 +7,18 @@ interface Props {
   quizzes: Quiz[];
 }
 
+const ResultType = {
+  Undefined: "undfined",
+  Correct: "correct",
+  Wrong: "wrong",
+} as const;
+type ResulType = typeof ResultType[keyof typeof ResultType];
+
 const TestForm: NextPage<Props> = ({ quizzes }) => {
   const [quizIndex, setQuizIndex] = useState(0);
   const [curQuiz, setCurQuiz] = useState<Quiz>(quizzes[quizIndex]);
   const [yourAnswer, setYourAnswer] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [result, setResult] = useState<ResulType>(ResultType.Undefined);
   const [quizFinished, setQuizFinished] = useState(false);
 
   const handleChangeAnswer = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,17 +26,16 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
   };
 
   const handleCheckAnswer = () => {
-    let msg = "Correct!";
-    if (curQuiz.answer !== yourAnswer) msg = curQuiz.answer;
+    if (curQuiz.answer !== yourAnswer) setResult(ResultType.Wrong);
+    else setResult(ResultType.Correct);
 
-    setAnswer(msg);
     setQuizFinished(true);
   };
 
   const handleNextQuestion = () => {
     const nextQuizIndex = quizIndex + 1;
     setQuizFinished(false);
-    setAnswer("");
+    setResult(ResultType.Undefined);
     setYourAnswer("");
     setCurQuiz(quizzes[nextQuizIndex]);
     setQuizIndex(nextQuizIndex);
@@ -37,7 +43,7 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
 
   const handleRetry = () => {
     setQuizFinished(false);
-    setAnswer("");
+    setResult(ResultType.Undefined);
     setYourAnswer("");
   };
 
@@ -90,9 +96,14 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
   };
 
   const showAnswer = () => {
-    if (answer.length === 0) {
-      return <p></p>;
+    if (result === ResultType.Undefined) {
+      return <span />;
     }
+
+    if (result === ResultType.Correct) {
+      return <p className="text-red-400 mt-2">Correct!</p>;
+    }
+
     return (
       <p className="text-red-400 mt-2">
         Wrong! The answer is &quot;{" "}
