@@ -13,7 +13,7 @@ interface Props {
 const QuizSetForm: NextPage<Props> = ({ quizSet }) => {
   const router = useRouter();
   const user = useContext(UserContext);
-  const [name, setName] = useState<string>(quizSet.name);
+  const [name, setName] = useState<string>(quizSet.name as string);
   const [errmsg, setErrmsg] = useState("");
   const [_input, insertExecute] = useInsert("quiz_sets");
   const [_update, updateExecute] = useUpdate("quiz_sets");
