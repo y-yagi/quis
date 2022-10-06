@@ -12,7 +12,14 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16
-    - name: Install packages
+    - uses: actions/cache@v3
+      id: node_modules_cache_id
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+    - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
       run: yarn install
     - name: Check format
       run: yarn formatter
