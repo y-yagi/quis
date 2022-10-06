@@ -19,7 +19,7 @@ describe("QuizSets", () => {
         <QuizSets />
       </ProviderWrapper>
     );
-    await setTimeout(100);
+    await setTimeout(300);
 
     expect(
       screen.getByText("Create a new Quiz Sets").closest("a")
