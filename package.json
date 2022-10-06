@@ -10,7 +10,8 @@
     "test:watch": "jest --watch",
     "lint": "next lint --max-warnings 0",
     "formatter": "yarn prettier --check .",
-    "formatter:write": "yarn prettier --write ."
+    "formatter:write": "yarn prettier --write .",
+    "types:typescript": "supabase gen types typescript --local > types/schema.gen.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.6",

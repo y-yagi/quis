@@ -1,11 +1,5 @@
-type QuizType = {
-  id: number;
-  user_id: string;
-  quiz_set_id: number;
-  question: string;
-  answer: string;
-  enabled: boolean;
-  created_at: string;
-};
+import { Database } from "./schema.gen";
+
+type QuizType = Database["public"]["Tables"]["quizzes"]["Row"];
 
 export default QuizType;

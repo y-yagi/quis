@@ -1,8 +1,5 @@
-type QuizSetType = {
-  id: number;
-  user_id: string;
-  name: string;
-  created_at: string;
-};
+import { Database } from "./schema.gen";
+
+type QuizSetType = Database["public"]["Tables"]["quiz_sets"]["Row"];
 
 export default QuizSetType;
