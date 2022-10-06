@@ -105,7 +105,7 @@ const TestForm: NextPage<Props> = ({ quizzes }) => {
     }
 
     return (
-      <p className="text-red-400 mt-2">
+      <p className="text-red-400 mt-2" data-testid="show-answer">
         Wrong! The answer is &quot;{" "}
         <span className="font-bold">{curQuiz.answer}</span> &quot;
       </p>
