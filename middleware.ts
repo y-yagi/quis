@@ -13,7 +13,7 @@ export const middleware = (req: NextRequest) => {
 
   if (basicAuth) {
     const authValue = basicAuth.split(" ")[1];
-    const [user, pwd] = Buffer.from(authValue).toString("base64").split(":");
+    const [user, pwd] = atob(authValue).split(":");
 
     if (
       user === process.env.BASIC_AUTH_USER &&
