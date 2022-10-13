@@ -14,12 +14,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const [session, setSession] = useState<AuthSession | null>(null);
 
   useEffect(() => {
-    const session = supabase.auth.session();
-    if (session) setSession(session);
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) setSession(data.session);
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+      supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session);
+      });
+    })();
   }, []);
 
   if (!session) {
