@@ -4,6 +4,7 @@ import { useContext } from "react";
 import UserContext from "../../lib/UserContext";
 import { useFilter, useSelect } from "react-supabase";
 import QuizForm from "../../components/QuizForm";
+import { UNEXIST_BIGINT_ID } from "../../lib/supabaseHelper";
 
 const Edit = () => {
   const router = useRouter();
@@ -11,7 +12,7 @@ const Edit = () => {
 
   const user = useContext(UserContext);
   const filter = useFilter(
-    (query) => query.eq("user_id", user?.id).eq("id", id),
+    (query) => query.eq("user_id", user?.id).eq("id", id || UNEXIST_BIGINT_ID),
     [user?.id, id]
   );
 
@@ -22,6 +23,7 @@ const Edit = () => {
   if (error) return <div>{error.message}</div>;
   if (fetching) return <div>Loading...</div>;
   if (!data) return <div>Something wrong...</div>;
+  if (data.length === 0) return <div>Loading...</div>;
 
   return (
     <Container>
