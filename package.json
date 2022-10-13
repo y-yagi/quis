@@ -8,6 +8,7 @@
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:integration": "yarn playwright test integration_tests/ --project=chromium",
     "lint": "next lint --max-warnings 0",
     "formatter": "yarn prettier --check .",
     "formatter:write": "yarn prettier --write .",
@@ -25,6 +26,7 @@
     "tailwindcss": "^3.1.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.27.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/node": "18.7.14",
