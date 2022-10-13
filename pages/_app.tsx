@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   const [session, setSession] = useState<AuthSession | null>(null);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       const { data } = await supabase.auth.getSession();
       if (data.session) setSession(data.session);
 
