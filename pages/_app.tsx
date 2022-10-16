@@ -9,9 +9,11 @@ import Container from "../components/Container";
 import Auth from "../components/Auth";
 import { Provider } from "react-supabase";
 import UserContext from "../lib/UserContext";
+import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [session, setSession] = useState<AuthSession | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -23,6 +25,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       });
     })();
   }, []);
+
+  if (
+    process.env.NODE_ENV === "development" &&
+    router.pathname === "/login_for_test"
+  ) {
+    return <Component />;
+  }
 
   if (!session) {
     return (
