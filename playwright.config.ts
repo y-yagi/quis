@@ -12,6 +12,10 @@ const config: PlaywrightTestConfig = {
       use: { ...devices["Desktop Chrome"] },
     },
   ],
+  webServer: {
+    command: "yarn dev",
+    port: 3000,
+  },
 };
 
 export default config;
