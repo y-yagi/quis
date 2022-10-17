@@ -16,8 +16,8 @@ test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:3000/login_for_test");
   await expect(page.locator(".message")).toHaveText("This is a test page");
 
-  await page.locator("#email").type(email);
-  await page.locator("#password").type(password);
+  await page.locator("#email").fill(email);
+  await page.locator("#password").fill(password);
   await page.getByRole("button").click();
   await expect(page.locator(".message")).toHaveText("login success");
 });
