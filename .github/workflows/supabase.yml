@@ -27,6 +27,8 @@ jobs:
     - run: supabase start
     - name: Install browsers
       run: yarn playwright install
+    - name: Build assets before stars a server
+      run: NEXT_PUBLIC_SUPABASE_URL=`supabase status | grep "API URL:" | awk '{print $3}'` NEXT_PUBLIC_SUPABASE_ANON_KEY=`supabase status | grep "service_role key:" | awk '{print $3}'` yarn run build
     - name: run test
       run: |
         NEXT_PUBLIC_SUPABASE_URL=`supabase status | grep "API URL:" | awk '{print $3}'` NEXT_PUBLIC_SUPABASE_ANON_KEY=`supabase status | grep "service_role key:" | awk '{print $3}'` yarn test:integration
