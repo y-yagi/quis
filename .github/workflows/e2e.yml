@@ -1,9 +1,9 @@
-name: supabase
+name: End-to-end tests
 
 on: [push]
 
 jobs:
-  supabase:
+  test:
     runs-on: ubuntu-latest
 
     steps:
