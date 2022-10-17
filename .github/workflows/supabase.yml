@@ -25,6 +25,8 @@ jobs:
       with:
         version: 1.6.0
     - run: supabase start
+    - name: Build assets before stars a server
+      run: yarn run build
     - name: Install browsers
       run: yarn playwright install
     - name: run test
