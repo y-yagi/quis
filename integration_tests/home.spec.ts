@@ -10,6 +10,7 @@ test.beforeEach(async ({ page }) => {
     data: {},
     email_confirm: true,
   });
+  console.log(error)
   // TODO: Ignore "AuthApiError: Email address already registered by another use"
   // if (error) throw error;
 
