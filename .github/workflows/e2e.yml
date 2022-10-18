@@ -1,0 +1,38 @@
+name: End-to-end tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - uses: actions/cache@v3
+      id: node_modules_cache_id
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+    - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
+      run: yarn install
+    - uses: supabase/setup-cli@v1
+      with:
+        version: 1.6.0
+    - run: supabase start
+    - name: Install browsers
+      run: yarn playwright install
+    - name: run test
+      run: |
+        NEXT_PUBLIC_SUPABASE_URL=`supabase status | grep "API URL:" | awk '{print $3}'` NEXT_PUBLIC_SUPABASE_ANON_KEY=`supabase status | grep "service_role key:" | awk '{print $3}'` yarn test:integration
+    - uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: artifact of playwright
+        path: |
+          test-results
