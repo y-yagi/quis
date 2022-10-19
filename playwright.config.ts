@@ -1,10 +1,12 @@
 import { PlaywrightTestConfig, devices } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
+  globalSetup: require.resolve("./integration_tests/global-setup"),
   use: {
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
+    storageState: "storageState.json",
   },
   projects: [
     {
