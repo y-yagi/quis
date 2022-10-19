@@ -16,8 +16,8 @@ const config: PlaywrightTestConfig = {
   ],
   testDir: "integration_tests",
   webServer: {
-    command: "yarn dev",
-    port: 3000,
+    command: "yarn dev -p 4000",
+    port: 4000,
   },
 };
 

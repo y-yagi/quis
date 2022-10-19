@@ -16,7 +16,7 @@ async function globalSetup(config: FullConfig) {
 
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  await page.goto("http://localhost:3000/login_for_test");
+  await page.goto("http://localhost:4000/login_for_test");
   await expect(page.locator(".message")).toHaveText("This is a test page");
   await page.locator("#email").fill(email);
   await page.locator("#password").fill(password);
