@@ -12,6 +12,7 @@ const config: PlaywrightTestConfig = {
       use: { ...devices["Desktop Chrome"] },
     },
   ],
+  testDir: "integration_tests",
   webServer: {
     command: "yarn dev",
     port: 3000,
