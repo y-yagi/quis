@@ -13,12 +13,14 @@ import { useRouter } from "next/router";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [session, setSession] = useState<AuthSession | null>(null);
+  const [fetching, setFetching] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     (async () => {
       const { data } = await supabase.auth.getSession();
       if (data.session) setSession(data.session);
+      setFetching(false);
 
       supabase.auth.onAuthStateChange((_event, session) => {
         setSession(session);
@@ -32,6 +34,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   ) {
     return <Component />;
   }
+
+  if (fetching) return <div>Loading...</div>;
 
   if (!session) {
     return (
