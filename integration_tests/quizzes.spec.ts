@@ -1,34 +1,22 @@
 import { test, expect } from "@playwright/test";
-import { testServer } from "./helper";
+import { testServer, fetchTestUser } from "./helper";
 import { supabase } from "../lib/supabaseClient";
 
 test.beforeAll(async () => {
-  const {
-    data: { users },
-    error,
-  } = await supabase.auth.admin.listUsers();
-  if (error) throw error;
-
+  const user = await fetchTestUser();
   const result = await supabase
     .from("quiz_sets")
-    .insert({ user_id: users[0].id, name: "QuizSetForTest" });
-  if (result.error) throw error;
+    .insert({ user_id: user.id, name: "QuizSetForTest" });
+  if (result.error) throw result.error;
 });
 
 test.afterAll(async () => {
-  const {
-    data: { users },
-    error,
-  } = await supabase.auth.admin.listUsers();
-  if (error) {
-    console.log("get user got error", error);
-    throw error;
-  }
+  const user = await fetchTestUser();
 
   const qResult = await supabase
     .from("quizzes")
     .delete()
-    .eq("user_id", users[0].id);
+    .eq("user_id", user.id);
   if (qResult.error) {
     console.log("delete quiz_sets got error", qResult.error);
     throw qResult.error;
@@ -37,7 +25,7 @@ test.afterAll(async () => {
   const sResult = await supabase
     .from("quiz_sets")
     .delete()
-    .eq("user_id", users[0].id);
+    .eq("user_id", user.id);
   if (sResult.error) {
     console.log("delete quiz_sets got error", sResult.error);
     throw sResult.error;
