@@ -32,7 +32,7 @@ test.afterAll(async () => {
   }
 });
 
-test("create quizzes", async ({ page }) => {
+test("manage quizzes", async ({ page }) => {
   page.on("console", (msg) => console.log(msg.text()));
   await page.goto(testServer);
 
@@ -43,4 +43,15 @@ test("create quizzes", async ({ page }) => {
   await page.getByRole("button").click();
   await expect(page.locator("table")).toContainText("This is a question!");
   await expect(page.locator("table")).toContainText("This is an answer!");
+
+  await page.getByText("Edit").click();
+  await page.getByPlaceholder("Question").fill("UpdatedQuestion");
+  await page.getByPlaceholder("Answer").fill("UpdatedAnswer");
+  await page.getByRole("button").click();
+  await expect(page.locator("table")).toContainText("UpdatedQuestion");
+  await expect(page.locator("table")).toContainText("UpdatedAnswer");
+
+  page.on("dialog", (dialog) => dialog.accept());
+  await page.getByText("Destroy").click();
+  await expect(page.locator("table")).not.toContainText("UpdatedQuestion");
 });
