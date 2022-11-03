@@ -1,7 +1,8 @@
+import { User } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabaseClient";
 
 export const testServer: string = "localhost:4000";
-export async function fetchTestUser() {
+export async function fetchTestUser(): Promise<User> {
   const {
     data: { users },
     error,
@@ -11,5 +12,8 @@ export async function fetchTestUser() {
     throw error;
   }
 
-  return users[0];
+  const user = users.find((user) => user.email === "example@example.com");
+  if (!user) throw "couldn't find test user";
+
+  return user;
 }
