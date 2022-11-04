@@ -25,6 +25,14 @@ jobs:
       with:
         version: 1.6.0
     - run: supabase start
+    - name: Verify generated types match Postgres schema
+      run: |
+        yarn types:typescript
+        if ! git diff --ignore-space-at-eol --exit-code --quiet types/schema.gen.ts; then
+          echo "Detected uncommitted changes after build. See status below:"
+          git diff
+          exit 1
+        fi
     - name: Install browsers
       run: yarn playwright install
     - name: run test
