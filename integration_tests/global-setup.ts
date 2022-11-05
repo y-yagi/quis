@@ -11,8 +11,12 @@ async function globalSetup(config: FullConfig) {
     data: {},
     email_confirm: true,
   });
-  // TODO: Ignore "AuthApiError: Email address already registered by another use"
-  // if (error) throw error;
+  if (
+    error &&
+    error.message !== "Email address already registered by another user"
+  ) {
+    throw error;
+  }
 
   const browser = await chromium.launch();
   const page = await browser.newPage();
