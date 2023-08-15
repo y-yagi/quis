@@ -7,7 +7,6 @@ async function globalSetup(config: FullConfig) {
   const { error } = await supabase.auth.admin.createUser({
     email: testUser.email,
     password: testUser.password,
-    data: {},
     email_confirm: true,
   });
   if (
