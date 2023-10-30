@@ -17,7 +17,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.33.1",
     "@tailwindcss/forms": "^0.5.4",
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "next": "12.2.5",
     "postcss": "^8.4.31",
     "react": "18.2.0",
