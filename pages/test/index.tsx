@@ -17,7 +17,7 @@ export default function Index() {
         .eq("quiz_set_id", quiz_set_id)
         .eq("enabled", true)
         .order("created_at"),
-    [user?.id]
+    [user?.id],
   );
   const [{ data, error, fetching }, _reexecute] = useSelect("quizzes", {
     columns: "id, question, answer",

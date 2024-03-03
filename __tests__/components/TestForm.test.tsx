@@ -20,7 +20,7 @@ describe("TestForm", () => {
     render(
       <ProviderWrapper>
         <TestForm quizzes={quizzes} />
-      </ProviderWrapper>
+      </ProviderWrapper>,
     );
 
     expect(screen.getByText("最近どう")).toBeInTheDocument();
@@ -32,7 +32,7 @@ describe("TestForm", () => {
     render(
       <ProviderWrapper>
         <TestForm quizzes={quizzes} />
-      </ProviderWrapper>
+      </ProviderWrapper>,
     );
 
     const input = screen.getByPlaceholderText("Put in your answer.");
@@ -48,7 +48,7 @@ describe("TestForm", () => {
     render(
       <ProviderWrapper>
         <TestForm quizzes={quizzes} />
-      </ProviderWrapper>
+      </ProviderWrapper>,
     );
 
     const input = screen.getByPlaceholderText("Put in your answer.");
@@ -56,7 +56,7 @@ describe("TestForm", () => {
     fireEvent.click(screen.getByRole("button"));
 
     expect(screen.getByTestId("show-answer").textContent).toBe(
-      'Wrong! The answer is " How are you doing? "'
+      'Wrong! The answer is " How are you doing? "',
     );
     expect(screen.getByText("Retry")).toBeInTheDocument();
     expect(screen.getByText("Finish")).toBeInTheDocument();

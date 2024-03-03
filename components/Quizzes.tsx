@@ -21,7 +21,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
         .eq("user_id", user?.id)
         .eq("quiz_set_id", quizSetId)
         .order("created_at"),
-    [user?.id]
+    [user?.id],
   );
 
   const [{ data, error, fetching }, _reexecute] = useSelect("quizzes", {
@@ -31,7 +31,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
 
   const handleDestroy = async (id: number) => {
     const { error } = await execute((query) =>
-      query.eq("id", id).eq("user_id", user?.id)
+      query.eq("id", id).eq("user_id", user?.id),
     );
     if (error) {
       setErrmsg(error.message);
@@ -47,7 +47,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
     // The bom for Excel.
     const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
     return URL.createObjectURL(
-      new Blob([bom, csvData as string], { type: "text/csv" })
+      new Blob([bom, csvData as string], { type: "text/csv" }),
     );
   };
 
@@ -99,7 +99,7 @@ const Quizzes: NextPage<Props> = ({ quizSetId }) => {
                     onClick={() => {
                       if (
                         window.confirm(
-                          "Are you sure you wish to delete this item?"
+                          "Are you sure you wish to delete this item?",
                         )
                       )
                         handleDestroy(quiz.id);

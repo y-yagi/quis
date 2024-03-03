@@ -13,7 +13,7 @@ const Edit = () => {
   const user = useContext(UserContext);
   const filter = useFilter(
     (query) => query.eq("user_id", user?.id).eq("id", id || UNEXIST_BIGINT_ID),
-    [user?.id, id]
+    [user?.id, id],
   );
 
   const [{ data, error, fetching }, _reexecute] = useSelect("quizzes", {

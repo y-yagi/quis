@@ -48,7 +48,7 @@ const QuizForm: NextPage<Props> = ({ quiz }) => {
   const updateQuiz = async () => {
     const { error } = await updateExecute(
       { question: question, answer: answer, enabled: enabled },
-      (query) => query.eq("id", quiz.id).eq("user_id", user?.id)
+      (query) => query.eq("id", quiz.id).eq("user_id", user?.id),
     );
     if (error) {
       setErrmsg(error.message);

@@ -17,12 +17,12 @@ describe("QuizSets", () => {
     render(
       <ProviderWrapper>
         <QuizSets />
-      </ProviderWrapper>
+      </ProviderWrapper>,
     );
     await setTimeout(300);
 
     expect(
-      screen.getByText("Create a new Quiz Sets").closest("a")
+      screen.getByText("Create a new Quiz Sets").closest("a"),
     ).toHaveAttribute("href", "/quiz_sets/new");
     expect(screen.getByText("QuizSetsTestOne")).toBeInTheDocument();
   });
