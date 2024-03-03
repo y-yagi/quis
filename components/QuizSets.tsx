@@ -12,7 +12,7 @@ const QuizSets = () => {
 
   const filter = useFilter(
     (query) => query.eq("user_id", user?.id),
-    [user?.id]
+    [user?.id],
   );
 
   const [{ data, error, fetching }, _reexecute] = useSelect("quiz_sets", {
@@ -22,7 +22,7 @@ const QuizSets = () => {
 
   const handleDestroy = async (id: string) => {
     const { error } = await execute((query) =>
-      query.eq("id", id).eq("user_id", user?.id).order("created_at")
+      query.eq("id", id).eq("user_id", user?.id).order("created_at"),
     );
 
     if (error) {
@@ -79,7 +79,7 @@ const QuizSets = () => {
                     onClick={() => {
                       if (
                         window.confirm(
-                          "Are you sure you wish to delete this item?"
+                          "Are you sure you wish to delete this item?",
                         )
                       )
                         handleDestroy(quizSet.id);

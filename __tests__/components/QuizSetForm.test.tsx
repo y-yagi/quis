@@ -18,7 +18,7 @@ describe("QuizSetForm", () => {
     render(
       <ProviderWrapper>
         <QuizSetForm quizSet={quizSet} />
-      </ProviderWrapper>
+      </ProviderWrapper>,
     );
 
     const input = screen.getByLabelText("name");
@@ -39,7 +39,7 @@ describe("QuizSetForm", () => {
     render(
       <ProviderWrapper>
         <QuizSetForm quizSet={quizSet} />
-      </ProviderWrapper>
+      </ProviderWrapper>,
     );
 
     expect(screen.getByText("Submit")).toBeInTheDocument();

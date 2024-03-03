@@ -4,7 +4,7 @@ import { Provider } from "react-supabase";
 
 export const client: SupabaseClient = createClient(
   "http://localhost",
-  "some.fake.key"
+  "some.fake.key",
 );
 
 export const ProviderWrapper: React.FC<{ children: any }> = ({ children }) => (

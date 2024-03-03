@@ -12,7 +12,7 @@ const ResultType = {
   Correct: "correct",
   Wrong: "wrong",
 } as const;
-type ResulType = typeof ResultType[keyof typeof ResultType];
+type ResulType = (typeof ResultType)[keyof typeof ResultType];
 
 const TestForm: NextPage<Props> = ({ quizzes }) => {
   const [quizIndex, setQuizIndex] = useState(0);
